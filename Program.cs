@@ -1,4 +1,9 @@
-﻿using System;
+﻿///Emanoel Kouriat
+///2021-09-27
+///emanoel.kouriat@student.forsbergsskolan.se
+
+using System;
+using System.Linq;
 using System.Threading;
 
 namespace HelloWorld
@@ -15,7 +20,7 @@ namespace HelloWorld
 
         static void Main(string[] args)
         {
-            SelectGame();
+            SelectGame(); //Start with user selecting what game to play
         }
 
         private static void TicTacToe()
@@ -146,37 +151,56 @@ namespace HelloWorld
 
         private static void SelectGame()
         {
-            int selectGame;
             Console.WriteLine("Select the game you want to play");
             Console.WriteLine("TicTacToe: Select 1");
             Console.WriteLine("Battleship: Select 2");
             Console.WriteLine("Nim: Select 3");
-            selectGame = int.Parse(Console.ReadLine());
-            if (selectGame == 1)
+
+            string selectGameInput = Console.ReadLine(); //Get user Input (ex 1, 2 or 3)
+            int selectGame;
+            Int32.TryParse(selectGameInput, out selectGame); //Check if user Input is an interger
+            
+            if (Enumerable.Range(1, 3).Contains(selectGame))
             {
-                TicTacToeflag = 0;
-                TicTacToeBoardLayout[1] = '1';
-                TicTacToeBoardLayout[2] = '2';
-                TicTacToeBoardLayout[3] = '3';
-                TicTacToeBoardLayout[4] = '4';
-                TicTacToeBoardLayout[5] = '5';
-                TicTacToeBoardLayout[6] = '6';
-                TicTacToeBoardLayout[7] = '7';
-                TicTacToeBoardLayout[8] = '8';
-                TicTacToeBoardLayout[9] = '9';
-                TicTacToeplayer = 1;
-                TicTacToe();
-            }
-            else if (selectGame == 2)
+                switch (selectGame) //Simple switch
+                {
+                    case 1: //Start Tic Tac Toe
+                        //Some resets before game starts again.
+                        TicTacToeflag = 0;
+                        TicTacToeBoardLayout[1] = '1';
+                        TicTacToeBoardLayout[2] = '2';
+                        TicTacToeBoardLayout[3] = '3';
+                        TicTacToeBoardLayout[4] = '4';
+                        TicTacToeBoardLayout[5] = '5';
+                        TicTacToeBoardLayout[6] = '6';
+                        TicTacToeBoardLayout[7] = '7';
+                        TicTacToeBoardLayout[8] = '8';
+                        TicTacToeBoardLayout[9] = '9';
+                        TicTacToeplayer = 1;
+                        //Start Game Tic Tac Toe
+                        TicTacToe();
+                        break;
+                    case 2: //Start Battleship
+                        //Battleship();
+                        Console.WriteLine("You Have Selected Battleship");
+                        SelectGame();
+                        break;
+                    case 3:
+                        //Nim();
+                        Console.WriteLine("You have Selected Num");
+                        SelectGame();
+                        break;
+                    default: //If other Input a number lower than 1 or higher than 3 it will force user to reselect
+                        Console.Clear();
+                        Console.WriteLine("Please select one of the following\n");
+                        SelectGame();
+                        break;
+                }
+            }else
             {
-                //Battleship();
-                Console.WriteLine("You Have Selected Battleship");
-                SelectGame();
-            }
-            else if (selectGame == 3)
-            {
-                //Nim();
-                Console.WriteLine("You have Selected Num");
+                //If other Input than numbers was given it force user to reselect
+                Console.Clear();
+                Console.WriteLine("Please select one of the following\n");
                 SelectGame();
             }
         }
