@@ -35,15 +35,9 @@
 *.props
 *.targets
 *.cache
-bin/Debug/net5.0/HelloWorld.deps.json
-bin/Debug/net5.0/HelloWorld.runtimeconfig.dev.json
-bin/Debug/net5.0/HelloWorld.runtimeconfig.json
-obj/Debug/net5.0/.NETCoreApp,Version=v5.0.AssemblyAttributes.cs
-obj/Debug/net5.0/HelloWorld.AssemblyInfo.cs
-obj/Debug/net5.0/HelloWorld.csproj.FileListAbsolute.txt
-obj/Debug/net5.0/HelloWorld.GeneratedMSBuildEditorConfig.editorconfig
-obj/HelloWorld.csproj.nuget.dgspec.json
-obj/project.assets.json
-.vs/HelloWorld/v16/.suo
-.vs/HelloWorld/DesignTimeBuild/.dtbcache.v2
-.vs/HelloWorld/v16/.suo
+
+#Custom Ignores
+**/bin/
+**/.vs/
+**/obj/
+**.sln
