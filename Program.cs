@@ -10,6 +10,7 @@ namespace HelloWorld
 {
     class Program
     {
+        #region TicTacToe Variables
         //BoardLayout 0-9, 0 is never used tho.
         static char[] TicTacToeBoardLayout = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
         static int TicTacToeplayer = 1; //Default player 1 starts
@@ -17,12 +18,19 @@ namespace HelloWorld
 
         //flag used in CheckWin(), if its 1 then someone has won, if its -1 then its a Draw, if its 0 game continues.
         static int TicTacToeflag = 0;
+        #endregion
 
+        #region Main, Select Game Switch
         static void Main(string[] args)
         {
             SelectGame(); //Start with user selecting what game to play
         }
+        #endregion
 
+        #region TicTacToe Game
+
+        //The game mechanics
+        #region The Game
         private static void TicTacToe()
         {
             do
@@ -82,10 +90,13 @@ namespace HelloWorld
             }
             SelectGame();
         }
+        #endregion
 
+        //Simple Board
+        #region Tic Tac Toe Board Print
         private static void TicTacToeBoard()
         {
-            //Simple Board
+            
             Console.WriteLine("     |     |      ");
 
             Console.WriteLine("  {0}  |  {1}  |  {2}", TicTacToeBoardLayout[1], TicTacToeBoardLayout[2], TicTacToeBoardLayout[3]);
@@ -104,8 +115,11 @@ namespace HelloWorld
 
             Console.WriteLine("     |     |      ");
         }
+        #endregion
 
-        //Checking that any player has won or not
+
+        //Checking if there is a winner during gameplay
+        #region TicTacToe Check if there is a winner
         private static int TicTacToeCheckWin()
         {
             //Winning Condition For First Row Down
@@ -148,7 +162,19 @@ namespace HelloWorld
             else
                 return 0;
         }
+        #endregion
 
+        #endregion
+
+        #region Battleship Game
+        //Lol Made you look, game is not yet here :)
+        #endregion
+
+        #region Nim Game
+        //Lol Made you look, game is not yet here :)
+        #endregion
+
+        #region SelectGame Void
         private static void SelectGame()
         {
             Console.WriteLine("Select the game you want to play");
@@ -204,6 +230,7 @@ namespace HelloWorld
                 SelectGame();
             }
         }
+        #endregion
 
     }
 }
