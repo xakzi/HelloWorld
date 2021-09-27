@@ -14,11 +14,16 @@ namespace HelloWorld
         //BoardLayout 0-9, 0 is never used tho.
         static char[] TicTacToeBoardLayout = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
         static int TicTacToeplayer = 1; //Default player 1 starts
-        static int TicTacToePlayerTurn; //This holds the turn of whos turn it it.
+        static int TicTacToePlayerTurn; //This holds the turn of whos turn it is.
 
         //flag used in CheckWin(), if its 1 then someone has won, if its -1 then its a Draw, if its 0 game continues.
         static int TicTacToeflag = 0;
         #endregion
+
+        static int NimGamePlayer = 1; //Default player 1 starts
+        static int NimGamePlayerTurn = 0; //This holds the turn of whos turn it is.
+        static int NimGameFlag = 0; //Used to check if someone has won
+        static int NimGameTokens = 12;
 
         #region Main, Select Game Switch
         static void Main(string[] args)
@@ -171,7 +176,119 @@ namespace HelloWorld
         #endregion
 
         #region Nim Game
-        //Lol Made you look, game is not yet here :)
+        private static void NimGame()
+        {
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("Whoever takes the last tokens wins.\n\n" +
+                    "There are " + NimGameTokens + " tokens.\n");
+
+                if (NimGamePlayer % 2 == 0)
+                {
+                    if (NimGameTokens < NimGamePlayerTurn)
+                    {
+                        Console.WriteLine("Nice Try! Select an amount that is not more than Tokens left!\n");
+                    }
+                    else
+                    {
+                        if (NimGamePlayerTurn != 0)
+                        {
+                            if (NimGamePlayerTurn < 1 || NimGamePlayerTurn > 3)
+                            {
+                                Console.WriteLine("Please take 1, 2 or 3 only!");
+                                
+                            }else
+                            {
+                                Console.WriteLine("Player 1 Took " + NimGamePlayerTurn + " Tokens\n");
+                            }
+                        }
+                    }
+                    Console.WriteLine("Player 2's Turn\nSelect a number between 1 and 3");
+                }
+                else
+                {
+                    if (NimGameTokens < NimGamePlayerTurn)
+                    {
+                        Console.WriteLine("Nice Try! Select an amount that is not more than Tokens left!\n");
+                    }
+                    else
+                    {
+                        if (NimGamePlayerTurn != 0)
+                        {
+                            if (NimGamePlayerTurn < 1 || NimGamePlayerTurn > 3)
+                            {
+                                Console.WriteLine("Please take 1, 2 or 3 only!\n");
+                                
+                            }else
+                            {
+                                Console.WriteLine("Player 2 Took " + NimGamePlayerTurn + " Tokens\n");
+                            }
+                        }
+                    }
+                    Console.WriteLine("Player 1's Turn\nSelect a number between 1 and 3");
+                }
+                
+                NimGamePlayerTurn = int.Parse(Console.ReadLine());
+                
+                if (NimGameTokens < NimGamePlayerTurn)
+                {
+                    //Console.WriteLine("Nice Try! Select an amount that is not more than Tokens left!\n");
+                    //This wont show because of the reset in the beginning
+                }
+                else
+                { 
+                    if (NimGamePlayerTurn < 1 || NimGamePlayerTurn > 3)
+                    {
+                        //Console.WriteLine("Please take 1, 2 or 3 only!");
+                        //This wont show because of the reset in the beginning
+                    }
+                    else
+                    {
+                        NimGamePlayer++;
+                    }
+                }
+                
+                if (NimGamePlayerTurn < 1 || NimGamePlayerTurn > 3)
+                {
+                    //Console.WriteLine("Please take 1, 2 or 3 only!");
+                    //This wont show because of the reset in the beginning
+                }
+                else
+                {
+                    if (NimGameTokens < NimGamePlayerTurn)
+                    {
+                        //Console.WriteLine("Nice Try! Select an amount that is not more than Tokens left!\n");
+                        //This wont show because of the reset in the beginning
+                    }
+                    else
+                    {
+                        NimGameTokens -= NimGamePlayerTurn;
+                    }
+                }
+
+                NimGameFlag = NimGameCheckWin();
+
+            } while (NimGameFlag != 1);
+
+            if (NimGameFlag == 1)
+                Console.WriteLine("\nPlayer {0} has won \n", (NimGamePlayer % 2) + 1);
+
+            SelectGame();
+
+        }
+        
+        private static int NimGameCheckWin()
+        {
+            if (NimGameTokens == 0)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
         #endregion
 
         #region SelectGame Void
@@ -212,8 +329,12 @@ namespace HelloWorld
                         SelectGame();
                         break;
                     case 3:
-                        //Nim();
-                        Console.WriteLine("You have Selected Num");
+                        NimGameTokens = 12;
+                        NimGameFlag = 0;
+                        NimGamePlayer = 1;
+                        NimGamePlayerTurn = 0;
+                        NimGame();
+                        //Console.WriteLine("You have Selected Num");
                         SelectGame();
                         break;
                     default: //If other Input a number lower than 1 or higher than 3 it will force user to reselect
