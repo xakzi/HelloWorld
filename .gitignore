@@ -44,3 +44,5 @@ obj/Debug/net5.0/HelloWorld.csproj.FileListAbsolute.txt
 obj/Debug/net5.0/HelloWorld.GeneratedMSBuildEditorConfig.editorconfig
 obj/HelloWorld.csproj.nuget.dgspec.json
 obj/project.assets.json
+.vs/HelloWorld/v16/.suo
+.vs/HelloWorld/DesignTimeBuild/.dtbcache.v2
