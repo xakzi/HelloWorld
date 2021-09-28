@@ -11,7 +11,6 @@ namespace HelloWorld
     class Program
     {
         #region Variables
-
         #region TicTacToe Variables
         //BoardLayout 0-9, 0 is never used tho.
         static char[] TicTacToeBoardLayout = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
@@ -28,22 +27,21 @@ namespace HelloWorld
         static int NimGameFlag = 0; //Used to check if someone has won
         static int NimGameTokens = 12;
         #endregion
-
         #endregion
 
-        #region Main, Select Game Switch
         static void Main(string[] args)
         {
+            #region Main, Select Game Switch
             SelectGame(); //Start with user selecting what game to play
+            #endregion
         }
-        #endregion
 
         #region TicTacToe Game
 
         //The game mechanics
-        #region The Game
         private static void TicTacToe()
         {
+            #region The Game
             TicTacToeReset();
             do
             {
@@ -109,14 +107,13 @@ namespace HelloWorld
                 Console.WriteLine("Draw\n");
             }
             SelectGame();
+#endregion
         }
-        #endregion
 
-        //Simple Board
-        #region Tic Tac Toe Board Print
+        //Simple Board Layout
         private static void TicTacToeBoard()
         {
-            
+            #region Tic Tac Toe Board Print
             Console.WriteLine("     |     |      ");
 
             Console.WriteLine("  {0}  |  {1}  |  {2}", TicTacToeBoardLayout[1], TicTacToeBoardLayout[2], TicTacToeBoardLayout[3]);
@@ -134,14 +131,13 @@ namespace HelloWorld
             Console.WriteLine("  {0}  |  {1}  |  {2}", TicTacToeBoardLayout[7], TicTacToeBoardLayout[8], TicTacToeBoardLayout[9]);
 
             Console.WriteLine("     |     |      ");
+            #endregion
         }
-        #endregion
-
-
+        
         //Checking if there is a winner during gameplay
-        #region TicTacToe Check if there is a winner
         private static int TicTacToeCheckWin()
         {
+            #region TicTacToe Check if there is a winner
             //Winning Condition For First Row Down
             if (TicTacToeBoardLayout[1] == TicTacToeBoardLayout[2] && TicTacToeBoardLayout[2] == TicTacToeBoardLayout[3])
             {
@@ -181,14 +177,13 @@ namespace HelloWorld
                 return -1;
             else
                 return 0;
+            #endregion
         }
-        #endregion
 
         //Reset the game values
-        #region TicTacToeReset()
         private static void TicTacToeReset()
         {
-
+            #region TicTacToeReset()
             TicTacToeflag = 0;
             TicTacToeBoardLayout[1] = '1';
             TicTacToeBoardLayout[2] = '2';
@@ -200,10 +195,10 @@ namespace HelloWorld
             TicTacToeBoardLayout[8] = '8';
             TicTacToeBoardLayout[9] = '9';
             TicTacToeplayer = 1;
+            #endregion
         }
-        #endregion
-
-        #endregion
+        
+        #endregion //TicTacToeGame
 
         #region Battleship Game
         //Lol Made you look, game is not yet here :)
@@ -212,9 +207,9 @@ namespace HelloWorld
         #region Nim Game
 
         //the game mechanics
-        #region The Game
         private static void NimGame()
         {
+            #region The Game
             NimGameReset();
             do
             {
@@ -278,13 +273,13 @@ namespace HelloWorld
             if (NimGameFlag == 1)
                 Console.WriteLine("Player {0} has won \n", (NimGamePlayer % 2) + 1);
             SelectGame();
-        }
         #endregion
+        }
 
         //Checking who is the winner
-        #region Nim Game Check Win
         private static int NimGameCheckWin()
         {
+            #region Nim Game Check Win
             if (NimGameTokens == 0)
             {
                 return 1;
@@ -293,26 +288,27 @@ namespace HelloWorld
             {
                 return 0;
             }
+            #endregion
         }
-        #endregion
-
+        
         //Reset the game values
-        #region Nim Game Reset()
         private static void NimGameReset()
         {
+            #region Nim Game Reset()
             //Some resets before game starts again.
             NimGameTokens = 12;
             NimGameFlag = 0;
             NimGamePlayer = 1;
             NimGamePlayerTurn = 0;
+            #endregion
         }
-        #endregion
 
         #endregion
 
-        #region SelectGame Void
+        
         private static void SelectGame()
         {
+            #region SelectGame Void
             Console.WriteLine("Select the game you want to play");
             Console.WriteLine("TicTacToe: Select 1");
             Console.WriteLine("Battleship: Select 2");
@@ -350,8 +346,9 @@ namespace HelloWorld
                 Console.WriteLine("Please select one of the following\n");
                 SelectGame();
             }
+            #endregion
         }
-        #endregion
+
 
     }
 }
