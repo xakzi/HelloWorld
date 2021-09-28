@@ -10,6 +10,8 @@ namespace HelloWorld
 {
     class Program
     {
+        #region Variables
+
         #region TicTacToe Variables
         //BoardLayout 0-9, 0 is never used tho.
         static char[] TicTacToeBoardLayout = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
@@ -20,10 +22,14 @@ namespace HelloWorld
         static int TicTacToeflag = 0;
         #endregion
 
+        #region Nim Variables
         static int NimGamePlayer = 1; //Default player 1 starts
         static int NimGamePlayerTurn = 0; //This holds the turn of whos turn it is.
         static int NimGameFlag = 0; //Used to check if someone has won
         static int NimGameTokens = 12;
+        #endregion
+
+        #endregion
 
         #region Main, Select Game Switch
         static void Main(string[] args)
@@ -38,6 +44,7 @@ namespace HelloWorld
         #region The Game
         private static void TicTacToe()
         {
+            TicTacToeReset();
             do
             {
                 Console.Clear(); //Clear the board (The Console)
@@ -55,28 +62,36 @@ namespace HelloWorld
                 Console.WriteLine("\nSelect a number");
                 TicTacToePlayerTurn = int.Parse(Console.ReadLine()); //User input
 
-                //Checking if a spot is already taken.
-                if (TicTacToeBoardLayout[TicTacToePlayerTurn] != 'X' && TicTacToeBoardLayout[TicTacToePlayerTurn] != 'O')
+                if (TicTacToePlayerTurn < 1 || TicTacToePlayerTurn > 9)
                 {
-                    if (TicTacToeplayer % 2 == 0) //put a mark (X or O) depending whos turn it is
+                    Console.WriteLine("Please choose a number that is available on the board");
+                    Console.WriteLine("\nPlease wait while the board is reloading...");
+                    Thread.Sleep(2000);
+                   
+                }else
+                {
+                    //Checking if a spot is already taken.
+                    if (TicTacToeBoardLayout[TicTacToePlayerTurn] != 'X' && TicTacToeBoardLayout[TicTacToePlayerTurn] != 'O')
                     {
-                        TicTacToeBoardLayout[TicTacToePlayerTurn] = 'O';
-                        TicTacToeplayer++;
+                        if (TicTacToeplayer % 2 == 0) //put a mark (X or O) depending whos turn it is
+                        {
+                            TicTacToeBoardLayout[TicTacToePlayerTurn] = 'O';
+                            TicTacToeplayer++;
+                        }
+                        else
+                        {
+                            TicTacToeBoardLayout[TicTacToePlayerTurn] = 'X';
+                            TicTacToeplayer++;
+                        }
                     }
                     else
                     {
-                        TicTacToeBoardLayout[TicTacToePlayerTurn] = 'X';
-                        TicTacToeplayer++;
-                    }
-                }
-                else
-                {
-                    //If position of choice is already marked, this message will write out and reload the board.
-                    Console.WriteLine("Sorry the row {0} is already marked with {1}", TicTacToePlayerTurn, TicTacToeBoardLayout[TicTacToePlayerTurn]);
-                    Console.WriteLine("\n");
-                    Console.WriteLine("Please wait while the board is reloading...");
-                    Thread.Sleep(2000);
+                        //If position of choice is already marked, this message will write out and reload the board.
+                        Console.WriteLine("Sorry the row {0} is already marked with {1}", TicTacToePlayerTurn, TicTacToeBoardLayout[TicTacToePlayerTurn]);
+                        Console.WriteLine("\nPlease wait while the board is reloading...");
+                        Thread.Sleep(2000);
 
+                    }
                 }
                 TicTacToeflag = TicTacToeCheckWin(); //check if someone has won or continue game
 
@@ -169,6 +184,25 @@ namespace HelloWorld
         }
         #endregion
 
+        //Reset the game values
+        #region TicTacToeReset()
+        private static void TicTacToeReset()
+        {
+
+            TicTacToeflag = 0;
+            TicTacToeBoardLayout[1] = '1';
+            TicTacToeBoardLayout[2] = '2';
+            TicTacToeBoardLayout[3] = '3';
+            TicTacToeBoardLayout[4] = '4';
+            TicTacToeBoardLayout[5] = '5';
+            TicTacToeBoardLayout[6] = '6';
+            TicTacToeBoardLayout[7] = '7';
+            TicTacToeBoardLayout[8] = '8';
+            TicTacToeBoardLayout[9] = '9';
+            TicTacToeplayer = 1;
+        }
+        #endregion
+
         #endregion
 
         #region Battleship Game
@@ -176,108 +210,79 @@ namespace HelloWorld
         #endregion
 
         #region Nim Game
+
+        //the game mechanics
+        #region The Game
         private static void NimGame()
         {
+            NimGameReset();
             do
             {
                 Console.Clear();
                 Console.WriteLine("Whoever takes the last tokens wins.\n\n" +
                     "There are " + NimGameTokens + " tokens.\n");
-
+                
                 if (NimGamePlayer % 2 == 0)
                 {
                     if (NimGameTokens < NimGamePlayerTurn)
                     {
-                        Console.WriteLine("Nice Try! Select an amount that is not more than Tokens left!\n");
+                        Console.WriteLine("Nice Try!! Select an amount that is not more than Tokens left\n");
                     }
                     else
                     {
                         if (NimGamePlayerTurn != 0)
                         {
                             if (NimGamePlayerTurn < 1 || NimGamePlayerTurn > 3)
-                            {
-                                Console.WriteLine("Please take 1, 2 or 3 only!");
-                                
-                            }else
-                            {
+                                Console.WriteLine("Please take 1, 2 or 3 only!\n");
+                            else
                                 Console.WriteLine("Player 1 Took " + NimGamePlayerTurn + " Tokens\n");
-                            }
                         }
                     }
-                    Console.WriteLine("Player 2's Turn\nSelect a number between 1 and 3");
+                    Console.WriteLine("Player 2's Turn\nSelect a number between 1 and 3\n");
                 }
                 else
                 {
                     if (NimGameTokens < NimGamePlayerTurn)
                     {
-                        Console.WriteLine("Nice Try! Select an amount that is not more than Tokens left!\n");
+                        Console.WriteLine("Nice Try! Select an amount that is not more than Tokens left\n");
                     }
                     else
                     {
                         if (NimGamePlayerTurn != 0)
                         {
                             if (NimGamePlayerTurn < 1 || NimGamePlayerTurn > 3)
-                            {
                                 Console.WriteLine("Please take 1, 2 or 3 only!\n");
-                                
-                            }else
-                            {
+                            else
                                 Console.WriteLine("Player 2 Took " + NimGamePlayerTurn + " Tokens\n");
-                            }
                         }
                     }
-                    Console.WriteLine("Player 1's Turn\nSelect a number between 1 and 3");
+                    Console.WriteLine("Player 1's Turn\nSelect a number between 1 and 3\n");
                 }
-                
                 NimGamePlayerTurn = int.Parse(Console.ReadLine());
-                
-                if (NimGameTokens < NimGamePlayerTurn)
-                {
-                    //Console.WriteLine("Nice Try! Select an amount that is not more than Tokens left!\n");
-                    //This wont show because of the reset in the beginning
-                }
-                else
-                { 
-                    if (NimGamePlayerTurn < 1 || NimGamePlayerTurn > 3)
-                    {
-                        //Console.WriteLine("Please take 1, 2 or 3 only!");
-                        //This wont show because of the reset in the beginning
-                    }
-                    else
-                    {
-                        NimGamePlayer++;
-                    }
-                }
-                
-                if (NimGamePlayerTurn < 1 || NimGamePlayerTurn > 3)
+
+                if (NimGamePlayerTurn < 1 || NimGamePlayerTurn > 3 || NimGameTokens < NimGamePlayerTurn)
                 {
                     //Console.WriteLine("Please take 1, 2 or 3 only!");
                     //This wont show because of the reset in the beginning
                 }
                 else
                 {
-                    if (NimGameTokens < NimGamePlayerTurn)
-                    {
-                        //Console.WriteLine("Nice Try! Select an amount that is not more than Tokens left!\n");
-                        //This wont show because of the reset in the beginning
-                    }
-                    else
-                    {
-                        NimGameTokens -= NimGamePlayerTurn;
-                    }
+                    NimGamePlayer++;
+                    NimGameTokens -= NimGamePlayerTurn;
                 }
-
                 NimGameFlag = NimGameCheckWin();
-
+            
             } while (NimGameFlag != 1);
-
+            
+            Console.Clear(); //Clearing the Console to show only the winner!
             if (NimGameFlag == 1)
-                Console.WriteLine("\nPlayer {0} has won \n", (NimGamePlayer % 2) + 1);
-
+                Console.WriteLine("Player {0} has won \n", (NimGamePlayer % 2) + 1);
             SelectGame();
-
         }
-        
+        #endregion
+
+        //Checking who is the winner
+        #region Nim Game Check Win
         private static int NimGameCheckWin()
         {
             if (NimGameTokens == 0)
@@ -289,6 +294,20 @@ namespace HelloWorld
                 return 0;
             }
         }
+        #endregion
+
+        //Reset the game values
+        #region Nim Game Reset()
+        private static void NimGameReset()
+        {
+            //Some resets before game starts again.
+            NimGameTokens = 12;
+            NimGameFlag = 0;
+            NimGamePlayer = 1;
+            NimGamePlayerTurn = 0;
+        }
+        #endregion
+
         #endregion
 
         #region SelectGame Void
@@ -308,19 +327,6 @@ namespace HelloWorld
                 switch (selectGame) //Simple switch
                 {
                     case 1: //Start Tic Tac Toe
-                        //Some resets before game starts again.
-                        TicTacToeflag = 0;
-                        TicTacToeBoardLayout[1] = '1';
-                        TicTacToeBoardLayout[2] = '2';
-                        TicTacToeBoardLayout[3] = '3';
-                        TicTacToeBoardLayout[4] = '4';
-                        TicTacToeBoardLayout[5] = '5';
-                        TicTacToeBoardLayout[6] = '6';
-                        TicTacToeBoardLayout[7] = '7';
-                        TicTacToeBoardLayout[8] = '8';
-                        TicTacToeBoardLayout[9] = '9';
-                        TicTacToeplayer = 1;
-                        //Start Game Tic Tac Toe
                         TicTacToe();
                         break;
                     case 2: //Start Battleship
@@ -328,14 +334,8 @@ namespace HelloWorld
                         Console.WriteLine("You Have Selected Battleship");
                         SelectGame();
                         break;
-                    case 3:
-                        NimGameTokens = 12;
-                        NimGameFlag = 0;
-                        NimGamePlayer = 1;
-                        NimGamePlayerTurn = 0;
+                    case 3: //Start Nim Game
                         NimGame();
-                        //Console.WriteLine("You have Selected Num");
-                        SelectGame();
                         break;
                     default: //If other Input a number lower than 1 or higher than 3 it will force user to reselect
                         Console.Clear();
